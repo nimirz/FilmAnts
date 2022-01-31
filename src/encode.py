@@ -20,7 +20,6 @@ ISO_STEP = 50
 LENS_STEP = 3
 
 # Defaults and limits for manual focus/exposure controls
-
 lensMin = 0
 lensMax = 255
 
@@ -29,7 +28,6 @@ expMax = 33000
 
 sensMin = 100
 sensMax = 1600
-
 
 # Start defining a pipeline
 pipeline = dai.Pipeline()
