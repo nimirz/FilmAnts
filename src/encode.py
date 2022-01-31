@@ -1,5 +1,6 @@
 
 # usage: python encode.py -o output_video.h265
+# script modified from depthai tutorials
 
 import depthai as dai
 import cv2
