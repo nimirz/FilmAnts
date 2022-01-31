@@ -1,3 +1,8 @@
+'''
+usage: python encode.py -o output_video.h265
+'''
+
+
 import depthai as dai
 import cv2
 import argparse
