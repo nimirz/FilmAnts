@@ -11,9 +11,9 @@ ap.add_argument("-o", "--output", required=False, help="path to output video fil
 args = vars(ap.parse_args())
 
 # Set manual camera settings
-lensPos = 132
-expTime = 33000
-sensIso = 1050
+lensPos = 216
+expTime = 2500
+sensIso = 1200
 
 # Step size for manual exposure/focus
 EXP_STEP = 500
