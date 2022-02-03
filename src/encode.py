@@ -7,7 +7,7 @@ import cv2
 import argparse
 
 ap = argparse.ArgumentParser()
-ap.add_argument("-o", "--output", required=False, help="path to output video file")
+ap.add_argument("-o", "--output", required=True, help="path to output video file")
 args = vars(ap.parse_args())
 
 # Set manual camera settings
@@ -42,7 +42,7 @@ cam.setPreviewSize(1280, 720)
 
 # Create an encoder, consuming the frames and encoding them using H.265 encoding
 videoEncoder = pipeline.createVideoEncoder()
-videoEncoder.setDefaultProfilePreset(1920, 1080, 30, dai.VideoEncoderProperties.Profile.H265_MAIN)
+videoEncoder.setDefaultProfilePreset(30, dai.VideoEncoderProperties.Profile.H265_MAIN)
 cam.video.link(videoEncoder.input)
 
 # Create output
