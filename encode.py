@@ -1,4 +1,3 @@
-
 # usage: python encode.py -o output_video.h265
 # script modified from depthai tutorials
 
@@ -6,14 +5,29 @@ import depthai as dai
 import cv2
 import argparse
 
+# Construct argument parser and parse arguments
 ap = argparse.ArgumentParser()
 ap.add_argument("-o", "--output", required=True, help="path to output video file")
+ap.add_argument("-e", "--exposure", required=False, help="set exposure of camera")
+ap.add_argument("-l", "--lens", required=False, help="set lens position of camera")
+ap.add_argument("-i", "--iso", required=False, help="set ISO of camera")
 args = vars(ap.parse_args())
 
-# Set manual camera settings
-lensPos = 216
-expTime = 2500
-sensIso = 1200
+# Update camera settings
+if args["lens"]:
+    lensPos = int(args["lens"])
+else:
+    lensPos = 200
+
+if args["exposure"]:
+    expTime = int(args["exposure"])
+else:
+    expTime = 14000
+
+if args["iso"]:
+    sensIso = int(args["iso"])
+else:
+    sensIso = 1200
 
 # Step size for manual exposure/focus
 EXP_STEP = 500
