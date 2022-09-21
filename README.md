@@ -1,4 +1,4 @@
-# filmAnts
+# FilmAnts
 We are recording using [OAK-D cameras](https://shop.luxonis.com/products/1098obcenclosure) which are powerful cameras that allow us to run neural networks on board. There are 3 cameras on the device: a central 4K color camera, plus left and right 720p mono cameras that enable depth perception. This script allows you to do a basic 1080p recording using the central camera and control the camera settings using keystrokes. For more information check out the DepthAi [documentation](https://docs.luxonis.com/en/latest/).
 
 ## Recording Videos
