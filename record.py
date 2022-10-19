@@ -46,12 +46,12 @@ pm = PipelineManager()
 pm.createColorCam(xout=True, previewSize=(1920,1080))
 
 # specify save location
-save_path = createFolder(Path.cwd() / args.path)       
+save_path = createFolder(Path.cwd() / args.path)
 
 def run():
     record_start = False
     frame_cntr = 0
-    
+
     with dai.Device(pm.pipeline) as device:
         pv = PreviewManager(display=[Previews.color.name], mouseTracker=True)
         pv.createQueues(device)
@@ -70,20 +70,20 @@ def run():
 
             cv2.imshow("color", frame)
             cv2.setMouseCallback("color", selectPoint, param=frame_cntr)
-            
+
             key = cv2.waitKey(1)
 
             if key == ord('q'):
                 break
 
             # start the video recording:
-            if key == ord('r'): 
+            if key == ord('r'):
                 print("Starting recording!")
                 record_start = True
-                fn = str(save_path) +'/' + time.strftime("%Y%m%d-%H%M%S") + ".mp4"       
+                fn = str(save_path) +'/' + time.strftime("%Y%m%d-%H%M%S") + ".mp4"
                 writer = cv2.VideoWriter(fn,cv2.VideoWriter_fourcc(*'mp4v'),
                                          30,(1920, 1080))
-            
+
     if record_start:
         writer.release()
 
