@@ -5,11 +5,13 @@ import depthai as dai
 import cv2
 import argparse
 import subprocess
+import os
 from datetime import datetime
+from pathlib import Path
 
 # Construct argument parser and parse arguments
 ap = argparse.ArgumentParser()
-ap.add_argument("-o", "--output", required=True, help="path to output video file")
+ap.add_argument("-p", "--path", required=False, default="recordings", help="path to output video file")
 ap.add_argument("-e", "--exposure", required=False, help="set exposure of camera")
 ap.add_argument("-l", "--lens", required=False, help="set lens position of camera")
 ap.add_argument("-i", "--iso", required=False, help="set ISO of camera")
@@ -101,9 +103,12 @@ def clamp(num, v0, v1):
 
 now = datetime.now()
 
+save_path = Path.cwd() / args['path'] / f"{str(now.strftime('%Y-%m-%d'))}"
+save_path.mkdir(parents=True, exist_ok=True)
+video_name = str(save_path / f"{now.strftime('%Y-%m-%d_%H-%M-%S-%MS')}")
+
 # Pipeline defined, now the device is connected to
-with dai.Device(pipeline) as device, open(args["output"][:-5] + now.strftime("%Y-%m-%d_%H-%M-%S-%MS.h265"),
-                                          'wb') as videoFile:
+with dai.Device(pipeline) as device, open(video_name + '.h265', 'wb') as videoFile:
     controlQueue = device.getInputQueue('control')
     ctrl = dai.CameraControl()
     ctrl.setManualExposure(expTime, sensIso)
@@ -173,13 +178,16 @@ with dai.Device(pipeline) as device, open(args["output"][:-5] + now.strftime("%Y
             controlQueue.send(ctrl)
 
     decode_command = "ffmpeg -framerate " + str(args["frame_rate"]) + " -i " + \
-                     args["output"][:-5] + now.strftime("%Y-%m-%d_%H-%M-%S-%MS.h265") + " -c copy " + \
-                     args["output"][:-5] + now.strftime("%Y-%m-%d_%H-%M-%S-%MS.mp4")
+                    video_name + ".h265 -c copy " + \
+                    video_name + ".mp4"
+                     #args["path"][:-5] + now.strftime("%Y-%m-%d_%H-%M-%S-%MS.h265") + " -c copy " + \
+                     #args["path"][:-5] + now.strftime("%Y-%m-%d_%H-%M-%S-%MS.mp4")
 
     if args["auto_decode"]:
-        ret = subprocess.run(decode_command, capture_output=True)
+        #ret = subprocess.run(decode_command, capture_output=True)
+        os.system(decode_command)
         print("Processing output file...")
-        print(ret, "\n\n Finished conversion!")
+        print("\n\n Finished conversion!")
     else:
         print(
             "To view the encoded data, convert the stream file (.h265) into a video file (.mp4) using a command below:")
