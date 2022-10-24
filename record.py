@@ -20,7 +20,7 @@ def createFolder(path):
 def recordFrameNum(x, y, frame_num, fn):
     #with open(save_path /'frame_list.csv', 'a') as f:
     fn = fn + '.csv'
-    with open(save_path / fn, 'a') as f:
+    with open(fn, 'a') as f:
         writer = csv.writer(f)
 
         if f.tell() == 0:
@@ -47,11 +47,9 @@ pm = PipelineManager()
 # define sources (can call left, right, and depth)
 pm.createColorCam(xout=True, previewSize=(1920,1080))
 
-# specify save location
-save_path = createFolder(Path.cwd() / args.path)
-
 def run():
     record_start = False
+    first_record = True
     frame_cntr = 0
 
     with dai.Device(pm.pipeline) as device:
@@ -81,10 +79,13 @@ def run():
             # start the video recording:
             if key == ord('r'):
                 print("Starting recording!")
+                if first_record:
+                    # specify save location
+                    save_path = createFolder(Path.cwd() / args.path)
+                    first_record = False
                 record_start = True
-                video_name = time.strftime("%Y%m%d-%H%M%S")
-                fn = str(save_path) +'/' + video_name + ".mp4"
-                writer = cv2.VideoWriter(fn,cv2.VideoWriter_fourcc(*'mp4v'),
+                video_name = str(save_path) +'/' + time.strftime("%Y%m%d-%H%M%S")
+                writer = cv2.VideoWriter(video_name + ".mp4",cv2.VideoWriter_fourcc(*'mp4v'),
                                          30,(1920, 1080))
             
             if key == ord('s'):
