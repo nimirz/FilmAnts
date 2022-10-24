@@ -1,5 +1,5 @@
 # FilmAnts
-We are recording using [OAK-D cameras](https://shop.luxonis.com/products/1098obcenclosure) which are powerful cameras that allow us to run neural networks on board. There are 3 cameras on the device: a central 4K color camera, plus left and right 720p mono cameras that enable depth perception. This script allows you to do a basic 1080p recording using the central camera and control the camera settings using keystrokes. For more information check out the DepthAi [documentation](https://docs.luxonis.com/en/latest/).
+We are recording using [OAK-D cameras](https://shop.luxonis.com/products/1098obcenclosure) which are powerful cameras that allow us to run neural networks on board. There are 3 cameras on the device: a central 4K color camera, plus left and right 720p mono cameras that enable depth perception. This script allows you to do a basic 1080p recording using the central camera and control the camera settings using keystrokes. For more information check out the DepthAI [documentation](https://docs.luxonis.com/en/latest/).
 
 ## Getting Started:
 1. Clone this repository to the computer you will be recording from.
@@ -13,7 +13,7 @@ b. Activate the environment `conda activate FilmAnts` \
 c. Install required packages: `pip install -r requirments.txt`
 
 ## Recording:
-There are two scripts for recording. The `encode.py` saves both h265/h264 videos and mp4 videos as well as allows manipulation of camera settings, while `record.py` only saves mp4 videos. Use `record.py` when generating training data, as it allows clicking on the preview screen to record timepoints. 
+There are two scripts for recording. The `encode.py` saves both h265/h264 videos and mp4 videos and allows manipulation of camera settings, while `record.py` only saves mp4 videos. Use `record.py` when generating training data, as it allows clicking on the preview screen to record timepoints. 
 
 ### Procedure for `encode.py`:
 
@@ -37,11 +37,11 @@ This will launch a preview window where you can see what is being recorded and s
 ### Procedure for `record.py`: 
 1. To begin recording type: `python record.py` and this will bring up a preview screen. Allow the camera to focus automatically, then press `r` to begin recording.
 
-2. Click the screen to write the current frame, and X/Y coordinates of the locaation clicked to a csv file. This file will be saved in the specificed output folder. 
+2. Click the screen to write the current frame, and X/Y coordinates of the location clicked to a csv file. This file will be saved in the specificed output folder. 
 
 3. Press `q` to end the recording.
 
-4. The videos will be saved under recordings/date if the path is not specificed (see below for specifying path). The video filename will be `date-time.mp4`
+4. The videos will be saved under /recordings/date/ if the path is not specificed (see below for specifying path). The video filename will be `date-time.mp4`
 
 4. Optional arugments: \
 -p or --path: specify output path for saving videos. Default is recordings/date/ \
