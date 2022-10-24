@@ -18,7 +18,6 @@ def createFolder(path):
 
 # save points to csv
 def recordFrameNum(x, y, frame_num, fn):
-    #with open(save_path /'frame_list.csv', 'a') as f:
     fn = fn + '.csv'
     with open(fn, 'a') as f:
         writer = csv.writer(f)
