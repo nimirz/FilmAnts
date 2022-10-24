@@ -17,8 +17,10 @@ def createFolder(path):
                 return recordings_path
 
 # save points to csv
-def recordFrameNum(x, y, frame_num):
-    with open(save_path /'frame_list.csv', 'a') as f:
+def recordFrameNum(x, y, frame_num, fn):
+    #with open(save_path /'frame_list.csv', 'a') as f:
+    fn = fn + '.csv'
+    with open(save_path / fn, 'a') as f:
         writer = csv.writer(f)
 
         if f.tell() == 0:
@@ -30,8 +32,8 @@ def recordFrameNum(x, y, frame_num):
 # click event function
 def selectPoint(event, x, y, flags, param):
     if event == cv2.EVENT_LBUTTONDOWN:
-        print("Saving frame " + str(param)+ "; x="+str(x)+"; y="+str(y))
-        recordFrameNum(x, y, param)
+        print("Saving frame " + str(param[0])+ "; x="+str(x)+"; y="+str(y))
+        recordFrameNum(x, y, param[0], param[1])
 
 parser = argparse.ArgumentParser(formatter_class=argparse.RawTextHelpFormatter)
 parser.add_argument('-p', '--path', default="recordings", type=str, help="Path where to store the captured data")
@@ -63,13 +65,13 @@ def run():
             if record_start:
                 writer.write(frame)
                 frame_cntr += 1
+                cv2.setMouseCallback("color", selectPoint, param=[frame_cntr, video_name])
                 if args.frame_cnt == frame_cntr:
-                    print("Stopping recording!")
+                    print("Stopping recording.")
                     frame_cntr = 0
                     record_start = False
 
             cv2.imshow("color", frame)
-            cv2.setMouseCallback("color", selectPoint, param=frame_cntr)
 
             key = cv2.waitKey(1)
 
@@ -80,9 +82,15 @@ def run():
             if key == ord('r'):
                 print("Starting recording!")
                 record_start = True
-                fn = str(save_path) +'/' + time.strftime("%Y%m%d-%H%M%S") + ".mp4"
+                video_name = time.strftime("%Y%m%d-%H%M%S")
+                fn = str(save_path) +'/' + video_name + ".mp4"
                 writer = cv2.VideoWriter(fn,cv2.VideoWriter_fourcc(*'mp4v'),
                                          30,(1920, 1080))
+            
+            if key == ord('s'):
+                print("Stopping recording.")
+                frame_cntr = 0
+                record_start = False
 
     if record_start:
         writer.release()
