@@ -84,7 +84,7 @@ def run():
                     save_path = createFolder(Path.cwd() / args.path)
                     first_record = False
                 record_start = True
-                video_name = str(save_path) +'/' + time.strftime("%Y%m%d-%H%M%S")
+                video_name = str(save_path) +'/' + time.strftime("%Y-%m-%d_%H-%M-%S-%MS")
                 writer = cv2.VideoWriter(video_name + ".mp4",cv2.VideoWriter_fourcc(*'mp4v'),
                                          30,(1920, 1080))
             
