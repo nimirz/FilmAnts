@@ -27,10 +27,9 @@ This will launch a preview window where you can see what is being recorded and s
 *Lens Position*: **,** increases and **.** decreases \
 *Exposure*: **o** increases and **i** decreases \
 *ISO*: **l** increases and **k** decreases \
- *press **q** to end the recording* 
  
  The values for each camera setting will be printed out in the console. After noting the values that work well for the camera setup, you can begin the recording with these settings by adding the optional arguments: \
- `python encode.py --output /path/to/output_file.h265 --exposure exp_value --iso iso_value --lens lens_position`
+ `python encode.py --exposure exp_value --iso iso_value --lens lens_position`
  
  3. Press `q` to end the recording.
  
