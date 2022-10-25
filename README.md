@@ -10,7 +10,7 @@ We are recording using [OAK-D cameras](https://shop.luxonis.com/products/1098obc
 Open a terminal and run the following commands:\
 a. Create the environment: `conda create --name FilmAnts` \
 b. Activate the environment `conda activate FilmAnts` \
-c. Install required packages: `pip install -r requirments.txt`
+c. Install required packages: `pip install -r requirements.txt`
 
 ## Recording:
 There are two scripts for recording. The `encode.py` saves both h265/h264 videos and mp4 videos and allows manipulation of camera settings, while `record.py` only saves mp4 videos. Use `record.py` when generating training data, as it allows clicking on the preview screen to record timepoints. 
