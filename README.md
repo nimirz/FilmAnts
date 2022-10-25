@@ -39,7 +39,7 @@ This will launch a preview window where you can see what is being recorded and s
 
 6. Optional arugments: \
 -p or --path: specify output path for saving videos. Default is recordings/date/ \
--4k or --record_4K: specify true to record in 4K, default is 1080p
+-4k or --record_4K: specify true to record in 4K, default is 1080p \
 -fps or --frame_rate: specify the frame rate, default is 30fps
  
 ### Procedure for `record.py`: 
@@ -47,13 +47,15 @@ This will launch a preview window where you can see what is being recorded and s
 
 2. Click the screen to write the current frame, and X/Y coordinates of the location clicked to a csv file. This file will be saved in the specificed output folder. 
 
-3. Press `q` to end the recording.
+3. Press `s` to stop the recording.
+ 
+4. You can press `r` again to begin another recording, or `q` to end.
 
-4. The videos will be saved under /recordings/date/ if the path is not specificed (see below for specifying path). Each time the script is called the files will be saved under a new folder with the date. The video filename will be `date-time.mp4`
+5. The videos will be saved under /recordings/date/ if the path is not specificed (see below for specifying path). Each time the script is called the files will be saved under a new folder with the date. The video filename will be `date-time.mp4`. If a csv file is created, it will be saved with the same name.
 
-4. Optional arugments: \
+6. Optional arugments: \
 -p or --path: specify output path for saving videos. Default is recordings/date/ \
--fc or --frame_cnt: specify number of frames to record. Default is record until stopped by `q`. 
+-fc or --frame_cnt: specify number of frames to record. Default is record until stopped by `s` or `q`. 
 
 ## Metadata for videos
 For each video recorded, keep track of the filming conditions in a spreadsheet. Important things to note are date, time of recording, camera distance, walking substrate, and trail width, as well as any experimental alterations. Save this as a csv within the recordings folder.
