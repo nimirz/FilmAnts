@@ -8,25 +8,26 @@ import cv2
 import time
 
 def createFolder(path):
-        i = 0
-        while True:
-            i += 1
-            recordings_path = path / f"{i}-{str(time.strftime('%Y-%m-%d'))}"
-            if not recordings_path.is_dir():
-                recordings_path.mkdir(parents=True, exist_ok=False)
-                return recordings_path
+    recordings_path = path / f"{str(time.strftime('%Y-%m-%d'))}"
+    if not recordings_path.is_dir():
+        recordings_path.mkdir(parents=True, exist_ok=False)
+        
+    return recordings_path
 
 # save points to csv
-def recordFrameNum(x, y, frame_num, fn):
-    fn = fn + '.csv'
-    with open(fn, 'a') as f:
+def recordFrameNum(x, y, frame_num, video):
+    fn = video.rsplit('_', 1)[0] + '.csv'
+    with open(fn, 'a+') as f:
+        f.seek(0) 
+        reader = csv.reader(f)
+        nrow = len(list(reader)) # to number ants
         writer = csv.writer(f)
 
-        if f.tell() == 0:
+        if nrow == 0:
             # create header if file doesn't exist
-            writer.writerow(['frame', 'x', 'y'])
-
-        writer.writerow([frame_num, x, y])
+            writer.writerow(['ant', 'frame', 'x', 'y', 'video']) 
+        
+        writer.writerow([nrow+1, frame_num, x, y, video.split('/')[-1]])
 
 # click event function
 def selectPoint(event, x, y, flags, param):
@@ -83,7 +84,8 @@ def run():
                     save_path = createFolder(Path.cwd() / args.path)
                     first_record = False
                 record_start = True
-                video_name = str(save_path) +'/' + time.strftime("%Y-%m-%d_%H-%M-%S-%MS")
+                video_name = str(save_path) +'/' + time.strftime("%Y-%m-%d_%H-%M-%S")
+                print("Saving to:"+video_name)
                 writer = cv2.VideoWriter(video_name + ".mp4",cv2.VideoWriter_fourcc(*'mp4v'),
                                          30,(1920, 1080))
             
